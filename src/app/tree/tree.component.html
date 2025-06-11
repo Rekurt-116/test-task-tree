@@ -1,0 +1,29 @@
+<ng-container *ngFor="let node of nodes">
+  <div class="tree-node"
+    style="margin-left: 16px"
+    [style.color]="node.is_deleted ? 'gray' : 'black'"
+  >
+    <span
+      *ngIf="node.children.length > 0"
+      (click)="toggle(node)"
+      style="cursor: pointer; margin-right: 4px"
+    >
+      {{ isExpanded(node) ? "▼" : "▶" }}
+    </span>
+
+    <ng-container
+      *ngTemplateOutlet="
+        template;
+        context: { $implicit: node, onButton: callOnButton(node) }
+      "
+    ></ng-container>
+  </div>
+
+  <div *ngIf="isExpanded(node)">
+    <app-tree
+      [nodes]="node.children"
+      [template]="template"
+      [onButton]="onButton"
+    ></app-tree>
+  </div>
+</ng-container>
