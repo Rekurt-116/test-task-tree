@@ -1,0 +1,15 @@
+<h2>Первое дерево</h2>
+<app-tree [nodes]="treeData" [template]="firstTree" [onButton]="logClick"></app-tree>
+
+<h2>Второе дерево</h2>
+<app-tree [nodes]="treeData" [template]="secondTree" [onButton]="expandAll"></app-tree>
+
+<ng-template #firstTree let-node let-onClick="onClick">
+  {{ node.id }} - {{ node.title }}
+  <button (click)="onClick()">Кнопка</button>
+</ng-template>
+
+<ng-template #secondTree let-node let-onClick="onClick">
+  {{ node.title }} ({{ node.children.length }})
+  <button (click)="onClick()">Открыть все</button>
+</ng-template>
